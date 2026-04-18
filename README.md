@@ -1,4 +1,4 @@
-Auto_Amaze: Cleartrip Automation Framework
+#Auto_Amaze: Cleartrip Automation Framework
 This project is an automation framework designed to handle the Cleartrip Flight Search use case. It focuses on handling dynamic web elements, asynchronous data loading, and popups using a resilient Page Object Model (POM) architecture.
 
 🛠 Tech Stack
