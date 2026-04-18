@@ -1,60 +1,46 @@
-#Auto_Amaze: Cleartrip Automation Framework
-This project is an automation framework designed to handle the Cleartrip Flight Search use case. It focuses on handling dynamic web elements, asynchronous data loading, and popups using a resilient Page Object Model (POM) architecture.
+# Auto_Amaze: Cleartrip Automation Framework
 
-🛠 Tech Stack
-Language: Java 21
+This project is an automation framework designed to handle the **Cleartrip Flight Search** use case. It focuses on handling dynamic web elements, asynchronous data loading, and popups using a resilient Page Object Model (POM) architecture.
 
-Automation Tool: Selenium WebDriver (v4.21.0)
+## 🛠 Tech Stack
+* **Language:** Java 21
+* **Automation Tool:** Selenium WebDriver (v4.21.0)
+* **Test Framework:** TestNG (v7.9.0)
+* **Build Tool:** Maven
 
-Test Framework: TestNG (v7.9.0)
+## 🏗 Framework Architecture
+The framework follows the **Page Object Model (POM)** pattern to ensure high maintainability and code reusability.
 
-Build Tool: Maven
+### Key Components
+* **`base/BaseTest.java`**: Centralized configuration class. It manages the WebDriver lifecycle (setup/teardown), handles Chrome browser options (incognito mode, disabling automation flags), and maximizes window settings to ensure a consistent test environment.
+* **`utils/WaitUtils.java`**: A custom wrapper for explicit waits. It abstracts complex Selenium `WebDriverWait` logic into reusable methods, including:
+    * `waitForClickable`: Ensures elements are interactable before clicks.
+    * `waitForPageStability`: Uses `document.readyState` via JavaScript to verify page load completion.
+    * Custom retry and sleep handling for high-latency dynamic elements.
+* **`pages/`**: Contains page-specific classes (`HomePage`, `SearchResultsPage`) that encapsulate locators and business logic.
+* **`tests/`**: Contains test scripts (e.g., `FlightSearchTest`) that extend `BaseTest` and execute business workflows.
 
-🏗 Framework Architecture
-The framework follows the Page Object Model (POM) pattern to ensure high maintainability and code reusability.
+## 🚀 Key Features
+* **Dynamic Popup Handling:** Uses a combination of `JavascriptExecutor` and explicit waits to identify and close intrusive marketing popups before test execution.
+* **JS Fallback Mechanism:** When standard Selenium `.click()` actions fail due to overlays or blocking elements, the framework defaults to `JavascriptExecutor` to ensure interactions are registered.
+* **Resilient Locators:** Uses relative and text-based XPaths to interact with the highly dynamic UI of the Cleartrip website.
 
-Key Components
-base/BaseTest.java: Centralized configuration class. It manages the WebDriver lifecycle (setup/teardown), handles Chrome browser options (incognito mode, disabling automation flags), and maximizes window settings to ensure a consistent test environment.
+## 📋 Prerequisites
+1.  **Java JDK 21** installed and configured.
+2.  **Maven** installed.
+3.  Chrome browser installed.
 
-utils/WaitUtils.java: A custom wrapper for explicit waits. It abstracts complex Selenium WebDriverWait logic into reusable methods, including:
+## 💻 How to Run
+1.  **Clone the repository.**
+2.  **Navigate to the project root.**
+3.  **Run tests via Maven:**
+    ```bash
+    mvn test
+    ```
+4.  **Custom Execution:** To run specific test suites, you can invoke the `testng.xml` file via the command line or your IDE's TestNG plugin.
 
-waitForClickable: Ensures elements are interactable before clicks.
-
-waitForPageStability: Uses document.readyState via JavaScript to verify page load completion.
-
-Custom retry and sleep handling for high-latency dynamic elements.
-
-pages/: Contains page-specific classes (HomePage, SearchResultsPage) that encapsulate locators and business logic.
-
-tests/: Contains test scripts (e.g., FlightSearchTest) that extend BaseTest and execute business workflows.
-
-🚀 Key Features
-Dynamic Popup Handling: Uses a combination of JavascriptExecutor and explicit waits to identify and close intrusive marketing popups before test execution.
-
-JS Fallback Mechanism: When standard Selenium .click() actions fail due to overlays or blocking elements, the framework defaults to JavascriptExecutor to ensure interactions are registered.
-
-Resilient Locators: Uses relative and text-based XPaths to interact with the highly dynamic UI of the Cleartrip website.
-
-📋 Prerequisites
-Java JDK 21 installed and configured.
-
-Maven installed.
-
-Chrome browser installed.
-
-💻 How to Run
-Clone the repository.
-
-Navigate to the project root.
-
-Run tests via Maven:
-
-Bash
-mvn test
-Custom Execution: To run specific test suites, you can invoke the testng.xml file via the command line or your IDE's TestNG plugin.
-
-📂 Project Structure
-Plaintext
+## 📂 Project Structure
+```text
 Auto_Amaze/
 ├── src/test/java/
 │   ├── base/           # BaseTest.java (Setup & Configuration)
